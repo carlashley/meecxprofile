@@ -1,0 +1,6 @@
+# Files
+.DS_Store
+
+# Folders
+__pycache__
+dist
