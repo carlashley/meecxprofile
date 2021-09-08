@@ -1,6 +1,5 @@
 # meecxprofile
 _Pronounced meeseeks_
-MCX To Profile re-imagined in Python 3
 
 This is a re-imagined version of the [MCX To Profile](https://github.com/timsutton/mcxToProfile) by Tim Sutton.
 
