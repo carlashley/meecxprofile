@@ -3,12 +3,19 @@ _Pronounced meeseeks_
 
 This is a re-imagined version of the [MCX To Profile](https://github.com/timsutton/mcxToProfile) project by Tim Sutton.
 
+## Requirements
 This version should be entirely self sufficient if the `pyobjc` package is not installed, although some TCC permissions such as `Full Disk` may need to be provided to `defaults`.
+
+This has been tested with Python 3.9.6 and `pyobjc` version 7.3; some basic testing has been done on macOS 10.13 and macOS 11.5.2.
+
+Python 3 is required.
 
 ## Support
 Support is provided "as is". This is not an exact replication of the original MCX To Profile project, but most functionality should exist.
 
 ## Usage
+The prebuilt `meecxprofile` is found in the `dist` folder of this repo.
+
 Three arguments are required:
 ```
 ./meecxprofile --identifier [identifier] --org-name [org name] --display-name [display name]
@@ -95,4 +102,12 @@ Source sample (represented as native Python `dict` type) after filtering by `com
                                                           {'mcx_input_key_names': ['MCXDockSpecialFolders-Raw'],
                                                            'mcx_output_key_name': 'MCXDockSpecialFolders',
                                                            'mcx_remove_duplicates': True}]}]}}
+```
+
+## Build Your Own
+Use the `build.sh` script to build your own. The generated file is output to `dist/meecxprofile`.
+
+To use a specific Python 3 shebang:
+```
+./build.sh --python="/usr/local/munki/python"
 ```
