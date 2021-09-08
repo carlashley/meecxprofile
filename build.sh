@@ -5,7 +5,7 @@ BUILD_DIR=./dist
 BUILD_OUT=${BUILD_DIR}/meecxprofile
 
 if [ ! -d ${BUILD_DIR} ]; then
-    mkdir -p ${BUILD_DIR
+    mkdir -p ${BUILD_DIR}
 fi
 
 # To provide your own python path, just add '--python=/path/to/python' after './build'
