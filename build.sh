@@ -22,3 +22,4 @@ fi
 
 # Build
 eval ${DIST_CMD}
+chmod +x ${BUILD_OUT}
