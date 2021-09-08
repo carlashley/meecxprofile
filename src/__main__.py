@@ -22,13 +22,22 @@ def main():
                                            domain=source_domain.name,
                                            manage=args.frequency,
                                            by_host=source_domain.by_host,
-                                           keys=args.keys)
+                                           keys=args.keys['by_values'])
+
+    if args.ds_object:
+        for ds_obj in args.ds_object:
+            mcx_data = common.mcx_from_ds_object(ds_obj=ds_obj,
+                                                 keys=args.keys)
+
+            if mcx_data:
+                for mcx_payload in mcx_data:
+                    profile.add_payload_from_mcx(payload=mcx_payload)
 
     if profile.data:
         if args.output:
             plist.write(profile.data, args.output)
         else:
-            print(plist.print(profile.data))
+            plist.dump(profile.data)
 
 
 if __name__ == '__main__':
