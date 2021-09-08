@@ -58,7 +58,7 @@ class Profile:
 
         self.data['PayloadContent'].append(_payload)
 
-    def add_payload_from_plist(self, payload: dict, domain: str, manage: str, by_host: bool = False, keys: list = list()):
+    def add_payload_from_plist(self, payload: dict, domain: str, manage: str, by_host: bool = False, keys: set = set()):
         """Add plist dict contents"""
         valid_manage = ['Always', 'Once']
 
