@@ -3,10 +3,14 @@ import sys
 
 from pathlib import PurePath
 
+from . import usage_examples
+from .common import filter_keys
 
-def error(msg: str, fatal: bool = True, returncode: int = 1):
+
+def error(msg: str, fatal: bool = True, returncode: int = 1, warning=False):
     """Print arg error"""
-    print(f'{sys.argv[0]}: error: argument: {msg}', file=sys.stderr)
+    warning = 'warning' if warning else 'error'
+    print(f'{sys.argv[0]}: {warning}: argument: {msg}', file=sys.stderr)
 
     if fatal:
         sys.exit(returncode)
@@ -77,6 +81,7 @@ def construct():
 
     exc('--ds-obj',
         type=str,
+        nargs='*',
         dest='ds_object',
         metavar='[object]',
         required=False,
@@ -102,16 +107,26 @@ def construct():
     args.frequency = args.frequency.capitalize()
 
     # Do args checks here
-    if args.ds_object:
-        error(msg='\'--ds-object\' is not yet implemented')
-
     if not (args.ds_object or args.plist):
         parser.print_usage()
         error(msg='one of \'--ds-object\', \'--plist\' must be provided')
 
-    if args.keys and not (args.ds_object or args.plist):
-        parser.print_usage()
-        error(msg='\'--keys\' can only be used with either \'--ds-object\' or \'--plist\'')
+    if args.keys:
+        if args.ds_object and not all(['=' in key for key in args.keys]):
+            parser.print_usage()
+            error(msg='\'--keys\' key filters must contain \'=\' character to indicate which domains/values to filter out of MCX settings', fatal=False)
+            print(usage_examples.ds_obj_mcx)
+            sys.exit(1)
+
+        if not (args.ds_object or args.plist):
+            parser.print_usage()
+            error(msg='\'--keys\' can only be used with either \'--ds-object\' or \'--plist\'')
+
+        if (args.ds_object and len(args.ds_object) > 1) or (args.plist and len(args.plist) > 1):
+            error(msg=('\'--keys\' will be applied to all the supplied values for \'--ds-object\' or \'--plist\', this may'
+                       ' have unintended consequences.'), fatal=False, warning=True)
+
+    args.keys = filter_keys(keys=args.keys)
 
     if args.output and not PurePath(args.output).suffix == '.mobileconfig':
         suffix = PurePath(args.output).suffix
