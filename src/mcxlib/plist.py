@@ -1,11 +1,9 @@
 import plistlib
 
 
-def print(data: dict):
+def dump(data: dict):
     """Print property list to stdout"""
-    result = plistlib.dumps(data, fmt=plistlib.FMT_XML).decode('utf-8').strip()
-
-    return result
+    print(plistlib.dumps(data, fmt=plistlib.FMT_XML).decode('utf-8').strip())
 
 
 def read(f: str):
