@@ -1,3 +1,10 @@
+# 2022-05-10
+For several personal and private reasons, I will no longer be able to actively maintain this repo.
+
+This repo will be marked read only from now on. No further support will be available.
+
+Carl.
+
 # meecxprofile
 _Pronounced meeseeks_
 
